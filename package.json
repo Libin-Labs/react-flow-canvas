@@ -1,0 +1,59 @@
+{
+  "name": "@lp-labs/react-flow-canvas",
+  "version": "0.1.0",
+  "description": "A lightweight, dependency-free React node editor with typed graph utilities.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/index.d.ts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./style.css": "./dist/style.css",
+    "./package.json": "./package.json"
+  },
+  "files": ["dist", "README.md", "LICENSE"],
+  "sideEffects": ["**/*.css"],
+  "engines": { "node": ">=20" },
+  "peerDependencies": { "react": "^18.2.0 || ^19.0.0" },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "esbuild": "^0.25.0",
+    "jsdom": "^26.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "typescript": "^5.8.0"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "typecheck": "tsc --noEmit && tsc -p tsconfig.example.json",
+    "test": "node scripts/test.mjs",
+    "test:package": "npm run build && node scripts/package-test.mjs",
+    "dev": "node scripts/dev.mjs",
+    "benchmark": "node scripts/benchmark.mjs",
+    "prepack": "npm run build"
+  },
+  "publishConfig": {
+      "access": "public",
+      "registry": "https://registry.npmjs.org/"
+  },
+  "funding": {
+      "type": "paypal",
+      "url": "https://www.paypal.me/LibinPrasanth"
+  },
+  "author": {
+      "name": "Libin Prasanth",
+      "url": "https://www.linkedin.com/in/libinprasanth/"
+  }
+}

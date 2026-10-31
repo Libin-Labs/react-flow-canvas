@@ -1,0 +1,61 @@
+.rfc-canvas {
+  --rfc-bg: #f8fafc;
+  --rfc-grid: #cbd5e1;
+  --rfc-node-bg: #fff;
+  --rfc-text: #0f172a;
+  --rfc-border: #cbd5e1;
+  --rfc-accent: #4f46e5;
+  --rfc-edge: #64748b;
+  position: relative; width: 100%; height: 100%; overflow: hidden;
+  background-color: var(--rfc-bg); color: var(--rfc-text);
+  font: 13px/1.5 system-ui, sans-serif; touch-action: none; user-select: none;
+  outline: none; box-sizing: border-box;
+}
+.rfc-canvas *, .rfc-canvas *::before, .rfc-canvas *::after { box-sizing: border-box; }
+.rfc-canvas:focus-visible { box-shadow: inset 0 0 0 2px var(--rfc-accent); }
+.rfc-viewport { position: absolute; inset: 0; transform-origin: 0 0; pointer-events: none; }
+.rfc-edges { position: absolute; top: 0; left: 0; width: 1px; height: 1px; overflow: visible; pointer-events: none; }
+.rfc-edge { pointer-events: visibleStroke; outline: none; cursor: pointer; }
+.rfc-edge-path { fill: none; stroke: var(--rfc-edge); stroke-width: 2; }
+.rfc-edge-hit { fill: none; stroke: transparent; stroke-width: 18; }
+.rfc-edge.rfc-selected .rfc-edge-path, .rfc-edge:focus-visible .rfc-edge-path { stroke: var(--rfc-accent); stroke-width: 3; }
+.rfc-animated .rfc-edge-path { stroke-dasharray: 8 5; animation: rfc-dash 0.7s linear infinite; }
+.rfc-edge-label { pointer-events: all; }
+.rfc-edge-label rect { fill: var(--rfc-node-bg); stroke: var(--rfc-border); }
+.rfc-edge-label text { fill: var(--rfc-text); font-size: 11px; }
+.rfc-connection-preview { fill: none; stroke: var(--rfc-accent); stroke-width: 2; stroke-dasharray: 6 4; }
+.rfc-node {
+  position: absolute; left: 0; top: 0; border: 1px solid var(--rfc-border);
+  border-radius: 10px; background: var(--rfc-node-bg); color: var(--rfc-text);
+  box-shadow: 0 2px 6px #0f172a0d; pointer-events: all; cursor: grab; outline: none;
+}
+.rfc-node:active { cursor: grabbing; }
+.rfc-node.rfc-selected, .rfc-node:focus-visible { border-color: var(--rfc-accent); box-shadow: 0 0 0 2px color-mix(in srgb, var(--rfc-accent) 25%, transparent); }
+.rfc-node-content { width: 100%; height: 100%; padding: 14px; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: inherit; }
+.rfc-node input, .rfc-node textarea, .rfc-node [contenteditable] { user-select: text; }
+.rfc-port {
+  position: absolute; transform: translate(-50%, -50%); width: 12px; height: 12px;
+  min-width: 0; padding: 0; border: 2px solid var(--rfc-node-bg); border-radius: 50%;
+  background: var(--rfc-edge); cursor: crosshair; z-index: 1;
+}
+.rfc-port:hover, .rfc-port:focus-visible, .rfc-port-ready { background: var(--rfc-accent); outline: 3px solid color-mix(in srgb, var(--rfc-accent) 20%, transparent); }
+.rfc-port:disabled { cursor: default; opacity: 0.4; }
+.rfc-selection { position: absolute; border: 1px solid var(--rfc-accent); background: color-mix(in srgb, var(--rfc-accent) 10%, transparent); pointer-events: none; }
+.rfc-controls { position: absolute; left: 12px; bottom: 12px; display: flex; gap: 1px; border: 1px solid var(--rfc-border); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px #0f172a0d; }
+.rfc-controls button { border: 0; padding: 8px 10px; background: var(--rfc-node-bg); color: var(--rfc-text); font: inherit; cursor: pointer; }
+.rfc-controls button:hover:not(:disabled) { background: var(--rfc-bg); }
+.rfc-controls button:disabled { opacity: 0.4; cursor: default; }
+.rfc-controls button:focus-visible { outline: 2px solid var(--rfc-accent); outline-offset: -2px; }
+.rfc-minimap { position: absolute; right: 12px; bottom: 12px; background: var(--rfc-node-bg); border: 1px solid var(--rfc-border); border-radius: 8px; cursor: crosshair; overflow: hidden; }
+.rfc-minimap-node { fill: var(--rfc-border); }
+.rfc-minimap-selected { fill: var(--rfc-accent); }
+.rfc-minimap-viewport { fill: color-mix(in srgb, var(--rfc-accent) 8%, transparent); stroke: var(--rfc-accent); pointer-events: none; }
+.rfc-panel { position: absolute; margin: 12px; z-index: 2; }
+.rfc-panel-top-left { top: 0; left: 0; }
+.rfc-panel-top-right { top: 0; right: 0; }
+.rfc-panel-bottom-left { bottom: 0; left: 0; }
+.rfc-panel-bottom-right { bottom: 0; right: 0; }
+.rfc-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.rfc-readonly .rfc-node { cursor: default; }
+@keyframes rfc-dash { to { stroke-dashoffset: -13; } }
+@media (prefers-reduced-motion: reduce) { .rfc-animated .rfc-edge-path { animation: none; } }
